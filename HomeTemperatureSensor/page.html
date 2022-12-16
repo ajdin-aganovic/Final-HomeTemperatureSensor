@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Home Temperature Sensor</h1>
+    <br>
+
+    <br>
+
+    <!--<h3>Temperatura u Celzijusima <div id="celzijus"></div></h3><br />
+    <h3>Temperatura u Farenhajtima <div id="farenhajt"></div></h3>
+    <h3>Senzor je: </h3> <div id="senzor" style="border:1px solid black; padding:5px; width:100px;text-align:center">Ugašen</div>-->
+
+    <table id="tabela">
+        <tr>
+            <th>ID</th>
+            <th>Temperatura u Celzijusima</th>
+            <th>Temperatura u Farenhajtima</th>
+            <th>SobaID</th>
+            <th>Vrijeme</th>
+            <th>StatusAlarma</th>
+        </tr>
+        <!--
+    <tr>
+        <td>Primjer</td>
+        <td>Primjer</td>
+        <td>Primjer</td>
+    </tr>
+    -->
+        <?php
+        $conn = sql_connect("DESKTOP-OP8BUEO\\MSSQLSERVER_OLAP");
+        // Check connection
+        if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+        }
+        $sql = "SELECT RedniBrojID, TemperaturaCelzijusa, TemperaturaFarenhajta, SobaID, Vrijeme, StatusAlarma FROM podaci";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+        echo "
+        <tr>
+            <td>" . $row["RedniBrojID"]. "</td>
+            <td>" . $row["TemperaturaCelzijusa"] . "</td>
+            <td>" . $row["TemperaturaFarenhajta"] . "</td>
+            <td>" . $row["SobaID"] . "</td>
+            <td>" . $row["Vrijeme"] . "</td>
+            <td>" . $row["StatusAlarma"] . "</td>
+        </tr>";
+        }
+        echo "
+    </table>";
+            } else { echo "0 results"; }
+            $conn->close();
+        ?>
+
+</body>
+
+<!--<script type="text/javascript">-->
+<script>
+    
+</script>
+</html>
